@@ -1,36 +1,76 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Getting Started
+# POS-RAiD 
+POS-RAiD is a simple Point-of-Sale (POS) system that enables a user to manage their sales transactions. 
 
-First, run the development server:
+## 1. Software Architecture
 
+### Frontend
+ - **Frontend** : [NextJS](https://nextjs.org/docs)
+- **UI framework** : [Tailwindcss](https://tailwindcss.com/docs/installation)
+ 
+### Backend
+ - **Backend** : [NextJS](https://nextjs.org/docs)
+ - **Database** : [MySQL](https://dev.mysql.com/)
+ - **Object Relational Mapping (ORM) framework** :  [Prisma](https://www.prisma.io/docs)
+ 
+### Others
+ - **Testing framework** : [Jest](https://jestjs.io/docs/getting-started)
+
+## 2. Project Setup
+
+### A. Prerequisites
+ - **Nodejs**
+ - **Npm**
+ - **MySQL** 
+
+### B. Starting up application
+1. After cloning this repository, open up a **terminal** in the project folder and install node modules (*only required for the first time*) :
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+	npm  i
 ```
-
+2. In the same **terminal**, run the following command to start the server : 
+```bash
+	npm run dev
+```
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### C. Setting up database
+**Prisma** will be used here to create the table schemas also also to pre-populate the data in the database.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+1. Create the table schemas :
+```bash
+	npx prisma migrate dev --name init
+```
 
-## Learn More
+> The same command can also be used whenever there is an update to the table schemas
 
-To learn more about Next.js, take a look at the following resources:
+2. Pre-populate the data:
+```bash
+	npx prisma db seed
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+> refer to the file ***/prisma/seed.ts*** for more information regarding the data to be pre-populated
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+### D. Setting up Jest (Test framework)
 
-## Deploy on Vercel
+1. Install Jest :
+```bash
+	npm install --save-dev jest @testing-library/react @testing-library/jest-dom
+```
+2. Execute test :
+```bash
+	npm test
+```
+> commands can be found in ***package.json***
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+ 
+## 3. Misc
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+### A. Logging into the system
+**POS system** can only be accessed after you login with a **valid employee id**
+> There are 5 employee records already pre-populated in the system. You can
+> choose to login with any of the following employee id:
+
+    100001, 100002, 100003, 100004, 100005
+
+

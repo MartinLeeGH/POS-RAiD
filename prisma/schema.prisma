@@ -1,0 +1,58 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Product {
+  id Int @id @default(autoincrement())
+  name String
+  category Category @relation(fields: [categoryId], references: [categoryId])
+  categoryId Int
+  price Float
+  productsOnTransactions ProductsOnTransactions[]
+}
+
+model Category {
+  categoryId Int @id @default(autoincrement())
+  name String
+  product Product[]
+}
+
+model Employee {
+  employeeId Int @id @default(autoincrement())
+  name String
+  transactions Transaction[]
+}
+
+model Transaction {
+  transactionId Int @id @default(autoincrement())
+  date DateTime
+  employee Employee @relation(fields: [employeeId], references: [employeeId])
+  employeeId Int
+  transactionAmount Float
+  productsOnTransactions ProductsOnTransactions[]
+}
+
+model ProductsOnTransactions {
+  product Product @relation(fields:[productId], references: [id])
+  productId Int
+  transaction Transaction @relation(fields:[transactionId], references: [transactionId])
+  transactionId Int
+  quantity Int
+  cost Float
+
+  @@id([productId, transactionId]) //composite key (productId, transactionId)
+}
+
+//relationship
+//category : product -> [1 : many] (1 category can have multiple products, and 1 product can only have 1 category)
+//employee : transaction -> [1 : many] (1 employee can have multiple completed transactions, and 1 transaction can only be completed by 1 employee)
+//product : transaction -> [many : many] (1 product can be in multiple transactions, and 1 transaction can contain multiple products)
+

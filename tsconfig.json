@@ -21,6 +21,6 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "barbel.rc", "__tests__/utils/date.test.js", "__tests__/utils/formatter.test.js"],
   "exclude": ["node_modules"]
 }
